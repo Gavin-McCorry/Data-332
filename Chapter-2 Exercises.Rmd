@@ -1,0 +1,89 @@
+---
+title: "Chapter-2 Exercises"
+author: "Gavin McCorry"
+date: "2024-02-18"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("ggplot2")
+```
+
+# What is qplot?
+```{r}
+qplot
+```
+
+## qplot Example: Scatterplot
+```{r}
+x <- c(-1, -.8, -.6, -.4, -.2, 0, .2, .4, .6, .8, 1)
+x
+
+y <- x^3
+y
+
+qplot(x, y)
+```
+
+## qplot Example: Histogram
+```{r}
+x <- c(1, 2, 2, 2, 3, 3)
+qplot(x, binwidth = 1.0)
+# binnwidth notworking correctly
+
+x2 <- c(1, 1, 1, 1, 1, 2, 2, 2, 2, 3,3)
+qplot(x2, binwidth = 1.0)
+```
+
+### Exercise 1:
+```{r}
+x3 <- c(0, 1, 1, 2, 2, 2, 3, 3, 4)
+# There are going to be 5 bars 
+# They will appear in betweeen each whole number
+# the first bar will be 1 high, the second one will be 2 high
+# the third one will b e3 high, the fourth one will be 2 high
+# and the fifth on will be 1 high
+
+qplot(x3, binwidth = 1)
+```
+
+
+# Dice Rolling
+## Roll Function
+```{r}
+
+roll <- function(bones = 1:6) {
+  dice <- sample(bones, size = 2, replace = TRUE)
+  sum(dice)
+}
+```
+
+## replicate function
+```{r}
+replicate(3, 1 + 1)
+
+replicate(10, roll())
+```
+
+## Histogram of Rolled Dice
+```{r}
+rolls <- replicate(10000, roll())
+qplot(rolls, binwidth = 1)
+```
+
+## Weighting the Die
+```{r}
+roll <- function() {
+  die <- 1:6
+  dice <- sample(die, size = 2, replace = TRUE, 
+                 prob = c(1/8, 1/8, 1/8, 1/8, 1/8, 3/8))
+  sum(dice)
+}
+```
+
+## Histogram of Weigted Dice
+```{r}
+rolls <- replicate(10000, roll())
+qplot(rolls, binwidth = 1)
+```
