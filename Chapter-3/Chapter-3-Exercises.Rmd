@@ -1,0 +1,286 @@
+---
+title: "Chapter-3-Exercises"
+author: "Gavin McCorry"
+date: "2024-02-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Atomic Vectors
+## Example is the die vector
+```{r Vectors}
+die <- c(1, 2, 3, 4, 5, 6)
+die
+
+is.vector(die)
+```
+
+## Vectors of length 1
+```{r vects length 1}
+five <- 5
+five
+
+is.vector(five)
+
+length(five)
+
+length(die)
+```
+
+
+## Integer and Character Vectors
+```{r Int and Char Vects}
+int <- 1L # Make Integeer Vector by adding L
+text <- "ace" # make Character vector by surrounding in quotes
+
+int <- c(1L, 5L)
+text <- c("ace", "hearts")
+
+sum(int)
+# sum(text)
+# Error in `sum()`:
+# ! invalid 'type' (character) of argument
+# Execution halted
+```
+
+# Doubles
+```{r Doubles}
+#EX:
+die <- c(1, 2, 3, 4, 5, 6)
+die
+
+typeof(die)
+```
+
+# Integers
+```{r Integers}
+int <- c(1L, 2L, 4L)
+int
+typeof(int)
+
+sqrt(2)^2 - 2
+```
+
+# Characters
+```{r Char}
+text <- c("Hello", "World")
+text
+
+typeof(text)
+
+typeof("World")
+```
+
+
+# Logicals
+```{r}
+3 > 4
+
+logic <- c(TRUE, FALSE, TRUE)
+logic
+
+typeof(logic)
+
+typeof(F)
+```
+
+# Complex and Raw
+```{r}
+comp <- c(1 +1i, 1 + 2i, + 3i)
+comp
+
+typeof(comp)
+
+raw(3)
+
+typeof(raw(3))
+```
+
+
+# Exercise
+## Create an atomic vector that stores just the face names of the cards in a royal flush,
+## for exampl, the ace of spades, king of spads, queen of spades, jack of spades, and ten of spades.
+## The face of the ace of spades would be "ace", and "spades" is the suit
+```{r Exercise 1}
+hand <- c("ace", "king", "queen", "jack", "ten")
+hand
+
+typeof(hand)
+```
+
+
+# Attributes
+## Names - Most common attribute
+```{r Names}
+names(die)
+
+names(die) <- c("one", "two", "three", "four", "five", "six")
+
+names(die)
+
+attributes(die)
+
+die
+
+die + 1 # names wont effect the actuak value of the vector
+
+# you can rename the elements vector
+names(die) <- c("uno", "dos", "tres", "cuatro", "cinco", "seis")
+die
+
+# can remove all names as well
+names(die) <- NULL
+die
+```
+
+
+## Dim
+```{r}
+# can transform an atomic vector into an n-dimensional array
+
+# 2x3 matrix
+dim(die) <- c(2, 3)
+die
+
+# 3x2 matrix
+dim(die) <- c(3, 2)
+die
+
+# 1 x 2 x 3 hyperecube
+dim(die) <- c(1, 2, 3)
+die
+```
+
+## Matrices
+```{r}
+m <- matrix(die, nrow = 2)
+m
+
+m <- matrix(die, nrow = 2, byrow = TRUE)
+m
+```
+
+## Arrays
+```{r}
+ar <- array(c(11:14, 21:24, 31:34), dim = c(2, 2, 3))
+ar
+```
+
+# Exercise 2
+```{r Exrcise 2}
+hand1 <- c("ace", "king", "queen", "jack", "ten", "spades", "spades", "spades", "spades", "spades")
+
+matrix(hand1, nrow = 5)
+```
+
+# Class
+```{r}
+dim(die) <c(2, 3)
+typeof(die)
+
+class(die)
+
+attributes(die)
+
+class("Hello")
+
+class(5)
+```
+
+# Dates and Times
+```{r}
+now <- Sys.time()
+now
+
+typeof(now)
+
+class(now)
+
+unclass(now)
+
+# What day is it a million seconds after 12:00 am han 1, 1970?
+mil <- 1000000
+mil
+
+class(mil) <- c("POSIXct", "POSIXt")
+mil
+```
+
+# Factors
+```{r}
+gender <- factor(c("male", "female", "female", "male"))
+typeof(gender)
+
+attributes(gender)
+
+unclass(gender)
+
+gender
+
+as.character(gender)
+```
+
+# Exercise 3
+```{r Exercise 3}
+card <- c("ace", "hearts", 1)
+card
+# you cant put multiple types of data in an atomic vector
+```
+
+# Coercion
+```{r}
+# R uses the same coercion ruls when you try to do math with logic values.So:
+sum(c(TRUE, TRUE, FALSE, FALSE))
+
+# is the same as:
+sum(c(1, 1, 0, 0))
+
+as.character(1)
+as.logical(1)
+as.numeric((FALSE))
+```
+
+
+# Lists
+```{r}
+list1 <- list(100:300, "R", list(TRUE, FALSE))
+list1
+```
+
+# Exercise 4
+```{r Exercise 4}
+# make one card using a list
+card <- list("ace", "hearts", 1)
+card
+```
+
+# Data Frames
+```{r}
+df <- data.frame(fac = c("ace", "two", "six"), suit = c("clubs", "clubs", "clubs"), value = c(1, 2, 6))
+df
+
+typeof(df)
+class(df)
+str(df)
+
+df <- data.frame(fac = c("ace", "two", "six"), suit = c("clubs", "clubs", "clubs"), value = c(1, 2, 6), stringsAsFactors = FALSE)
+df
+```
+
+# Loading Data
+## load deck.csv from http://bit.ly/deck_CSV
+```{r}
+# head(deck)
+```
+
+
+# Saving Data
+```{r}
+# write.csv(deck, file = "cards.csv", row.names = FALSE)
+```
+
+
+
