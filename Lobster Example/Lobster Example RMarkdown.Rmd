@@ -1,0 +1,13 @@
+---
+title: "Lobster Example"
+author: "Gavin McCorry"
+date: "2024-03-05"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Code in-line in RMarkdown
+# There are `r nrow(lobsters) total lobsters included in this report
