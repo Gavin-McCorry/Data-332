@@ -1,7 +1,7 @@
 # This file contains the graphs I created for my Patient Billing Data HW
 
 ### Reason for visiting Based on walk-in or not
-![alt text]
+![alt text](https://github.com/Gavin-McCorry/Data-332/blob/main/Patient%20Billing%20Data%20HW/Reason%20For%20Visiting-WalkIn%20Plot.png)
 
 ### Reason for visiting based on city
 ![alt text]
