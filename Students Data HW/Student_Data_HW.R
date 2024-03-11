@@ -50,7 +50,7 @@ major_count_plot <- ggplot(df_pivot_majors, aes(x = Title, y = count, fill = Tit
   geom_text(aes(label = count), vjust = -0.5)
 
 major_count_plot
-ggsave('major_count_plot.pdf')
+ggsave('major_count_plot.png', height = 5)
 
 
 # Chart by birth year for students
@@ -63,7 +63,7 @@ birth_year_count_plot <- ggplot(df_pivot_birth_dates, aes(x = year, y = count, f
   geom_text(aes(label = count), vjust = -0.5)
 
 birth_year_count_plot
-ggsave('birth_year_count_plot.pdf')
+ggsave('birth_year_count_plot.png', height = 5)
 
 
 
@@ -77,7 +77,7 @@ cost_pre_major_plot <- ggplot(df_pivot_payment_plan, aes(x = Title, y = total_co
   geom_text(aes(label = total_cost), vjust = -0.5)
 
 cost_pre_major_plot
-ggsave('cost_pre_major_plot.pdf')
+ggsave('cost_pre_major_plot.png')
 
 
 
@@ -91,6 +91,6 @@ balance_per_major_plot <- ggplot(df_pivot_payment_plan, aes(x = Title, y = total
   geom_text(aes(label = total_bal), vjust = -0.5)
 
 balance_per_major_plot
-ggsave('balance_per_major_plot.pdf')
+ggsave('balance_per_major_plot.png')
 
 
