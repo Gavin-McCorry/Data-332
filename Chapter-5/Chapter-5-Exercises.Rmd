@@ -1,0 +1,145 @@
+---
+title: "Chapter 5"
+author: "Gavin McCorry"
+date: "2024-03-18"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Chapter 5: Modifying Values
+### Loading Deck
+```{r}
+deck <- read.csv("C:/Users/gwmcc/OneDrive/Documents/GitHub/Data-332/Chapter-3/cards.csv")
+
+```
+### Shuffle Function from Chapter 4
+```{r}
+shuffle <- function(cards) {
+  random <- sample(c(1:52), size = 52)
+  cards[random,]
+}
+```
+
+
+## Changing Values In Place
+```{r}
+vec <- c(0, 0, 0, 0, 0, 0)
+vec
+
+# replacing on value
+vec[1] <- 1000
+vec
+
+# replacing multiple values
+vec[c(1, 3, 5)] <- c(1, 1, 1)
+vec
+
+# crating new values
+vec[7] <- 0
+vec
+```
+
+
+### Adding nw variabeles to data set
+```{r}
+deck$new <- 1:52
+head(deck)
+
+# Can also remove variables
+deck$new <- NULL
+head(deck)
+```
+
+### Wokring with the deck - Card game War, relpacing aces valu of 1 to 14
+```{r}
+# singling out value of the aces
+deck[c(13, 26, 39, 52), ]
+
+# can just get the values
+deck$value[c(13, 26, 39, 52)]
+
+# replacing ace value
+deck$value[c(13, 26, 39, 52)] <- 14
+head(deck, 13)
+```
+
+
+## Logical Subsetting
+```{r}
+# Logical Opereators Examples:
+1 > 2
+1 > c(0, 1, 2)
+c(1, 2, 3) == c(3, 2, 1)
+
+# %in% operator
+1 %in% c(3, 4, 5)
+c(1, 2, 3, 4) %in% c(3, 4, 5)
+```
+### Exercise: Extract the face column o fdeck and test whether each valu is equal to ace and count how many cards aree equal to ace. 
+```{r}
+sum(deck$face == "ace")
+```
+
+### Exeercise: Lets put logical subsetting to use with a new gam: hearts. In haearts everey card has a valu of zero:
+```{r}
+deck4 <- deck
+deck4$value <- 0
+
+# Assign a value of 1 to every card in dck4 that has a suit of harts
+deck4$value[deck4$suit == "hearts"] <- 1
+deck4$value[deck4$suit == "hearts"]
+```
+
+## Boolan Operators: We can use boolean opeerators to find the queen of spades and assign it the value of 13 for the game of hearts
+```{r}
+queenSpades <- deck4$face == "queen" & deck4$suit == "spades"
+deck4$value[queenSpades] <- 13
+deck4[queenSpades, ]
+```
+
+## One last game: Black Jack:
+```{r}
+deck5 <- deck
+
+facecards <- deck5$face %in% c("king", "queen", "jack")
+deck5[facecards, ]
+
+deck5$value[facecards] <- 10
+head(deck5, 13)
+```
+
+
+## Missing Informtaion:
+```{r}
+1 + NA
+
+NA == 1
+```
+
+### na.rm
+```{r}
+c(NA, 1:50)
+
+# cant get mean regularly
+mean(c(NA, 1:50))
+
+# Use special parameters
+mean(c(NA, 1:50), na.rm = TRUE)
+```
+### is.na
+```{r}
+# May want to identify if a value is NA
+NA == NA
+
+# Regular comparison oerators dont work so use is.na
+is.na(NA)
+```
+### Last thing we will finish the blckjack deck by making the values NA since we dont know the inal value of the ace
+```{r}
+deck5$value[deck5$face == "ace"] <- NA
+head(deck5, 13)
+```
+
