@@ -56,3 +56,6 @@ customer_complaints_sentiment_state <- tidy_complaints %>%
   mutate(sentiment = positive - negative)
 ```
 
+## Data Summary 
+### Sentiment Analysis
+![customer_sentiment_analysis_by_company](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Data/sentiment_analysis_company.rds)
