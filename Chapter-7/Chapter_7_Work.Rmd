@@ -1,0 +1,119 @@
+---
+title: "Chaptere 7"
+author: "Gavin McCorry"
+date: "2024-04-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Building Slot Machine
+
+## Genereating random sybols
+```{r}
+get_symbols <- function(){
+  wheel <- c("DD", "7", "BBB", "BB", "B", "C", "0")
+  sample(wheel, size = 3, replace = TRUE, 
+         prob = c(.03, .03, .06, .1, .25, .01, .52))
+}
+
+get_symbols()
+get_symbols()
+```
+
+## If statements:
+```{r}
+# Example:
+num <- -2
+
+if (num < 0) {
+  num <- num * -1
+}
+
+num
+```
+
+# Else statements:
+```{r}
+# Example:
+a <- 1
+b <- 1
+
+if(a > b) {
+  print("A Wins!")
+} else if (b > a){
+  print("B")
+} else{
+  print("Tie")
+}
+```
+
+# Making the scoring function:
+```{r}
+symbols1 <- c("7", "7", "7")
+
+# Exercise 1: turn preceding code into a logical test:
+symbols1[1] == symbols1[2] & symbols1[2] == symbols1[3]
+# or 
+length(unique(symbols1))
+
+
+# Cheching second typ of prize
+symbols2 <- c("B", "BB", "BBB")
+# Can check this with:
+all(symbols2 %in% c("B", "BB", "BBB"))
+```
+
+# Lookup Tables:
+```{r}
+payouts <- c("DD" = 100, "7" = 80, "BBB" = 40, "BB" = 25, "B" = 10, "C" = 10, "0" = 0)
+
+payouts["DD"]
+payouts["B"]
+
+unname(payouts["DD"])
+
+# Exercise: how can you tell which lements of a vector named symbols are a C
+symbols3 <- c("C", "DD", "C")
+# Answere:
+sum(symbols3 == "C")
+
+# Exercise: Writ a method for adjtsing the prize based on diamonds
+# prize * 2 ^ diamonds works just fine
+```
+# Final Score Script:
+```{r}
+score <- function(symbols) {
+  same <- symbols[1] == symbols[2] & symbols[2] == symbols[3]
+  bars <- symbols %in% c("B", "BB", "BBB")
+  
+  if(same){
+    payouts <- c("DD" = 100, "7" = 80, "BBB" = 40, "BB" = 25, "B" = 10, "C" = 10, "0" = 0)
+    prize <- unname(payouts[symbols[1]])
+  } else if(all(bars)){
+    prize <- 5
+  } else{
+    cherries <- sum(symbols == "C")
+    prize <- c(0, 2, 5)[cherries + 1]
+  }
+  
+  diamonds <- sum(symbols == "DD")
+  prize * 2 ^ diamonds
+}
+```
+
+# Play Funtion:
+```{r}
+play <- function(){
+  symbols <- get_symbols()
+  print(symbols)
+  score(symbols)
+}
+
+play()
+play()
+play()
+```
+

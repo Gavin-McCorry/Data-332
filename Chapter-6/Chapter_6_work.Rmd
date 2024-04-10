@@ -1,0 +1,149 @@
+---
+title: "Chapter_6"
+author: "Gavin McCorry"
+date: "2024-04-10"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(pryr)
+```
+
+# Environments
+
+### Loading Deck
+```{r}
+deck <- read.csv("C:/Users/gwmcc/OneDrive/Documents/GitHub/Data-332/Chapter-3/cards.csv")
+Deck <- read.csv("C:/Users/gwmcc/OneDrive/Documents/GitHub/Data-332/Chapter-3/cards.csv")
+
+```
+
+### Shuffle Function from Chapter 4
+```{r}
+shuffle <- function(cards) {
+  random <- sample(c(1:52), size = 52)
+  cards[random,]
+}
+```
+
+### Deal Function
+```{r}
+deal <- function(cards){
+  cards[1, ]
+}
+```
+
+## Vieing environment
+```{r}
+parenvs(all = T)
+```
+
+# Working With Environments
+```{r}
+as.environment("package:stats")
+
+globalenv()
+
+baseenv()
+
+emptyenv()
+
+# look up environments parnts
+parent.env(globalenv())
+
+# view saved objects in an environment
+ls(emptyenv())
+ls(globalenv())
+```
+
+# Active Environments
+```{r}
+# see current activ environment
+environment()
+```
+
+# Evaluation
+```{r}
+# R runs your functions in a runtime environment then returns the results back to your environment
+# See here:
+show_env <- function(){
+  list(ran.in = environment(), 
+       parent = parent.env(environment()), 
+       objects = ls.str(environment())
+  )
+}
+# Runs in different environment each time
+show_env()
+```
+
+# Exercise:
+```{r}
+# redefine the deal function by taking out the parameter
+# Deal still works cuz deck is in the global environment
+
+deal <- function() {
+  deck[1, ]
+}
+deal()
+```
+# Exercise 2:
+```{r}
+# mak it so that after dealing card is removed from the deck
+
+deal <- function(){
+  card <- deck[1, ]
+  assign("deck", deck[-1, ], envir = globalenv())
+  card
+}
+
+deal()
+deal()
+deal()
+```
+
+# Exercise 3:
+```{r}
+# Rewrite shuffle so that it replaces the copy of deck that lives in the global environment with a shuffled version of Deck
+
+shuffle <- function(){
+  random <- sample(1:52, size = 52)
+  assign("deck", Deck[random, ], envir = globalenv())
+}
+
+shuffle()
+```
+
+
+# Closure
+```{r}
+shuffle()
+deal()
+deal()
+
+# this would be better if we could store deck in a safe and out of the way place
+
+setup <- function(deck){
+  DEAL <- deck
+  
+  DEAL <- function(){
+  card <- deck[1, ]
+  assign("deck", deck[-1, ], envir = globalenv())
+  card
+  }
+  
+  SHUFFLE <- function(){
+  random <- sample(1:52, size = 52)
+  assign("deck", Deck[random, ], envir = globalenv())
+  }
+  
+  list(deal = DEAL, shuffle = SHUFFLE)
+}
+
+cards <- setup(deck)
+deal <- cards$deal
+shuffle <- cards$shuffle
+
+# finally have complete card game
+```
+
