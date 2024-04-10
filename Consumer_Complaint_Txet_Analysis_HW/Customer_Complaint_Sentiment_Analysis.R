@@ -9,7 +9,7 @@ library(reshape2)
 library(readxl)
 library(ggplot2)
 
-setwd("C:/Users/gwmcc/OneDrive/Documents/GitHub/Data-332/Consumer_Complaint_Txet_Analysis_HW/Pics")
+setwd("C:/Users/gwmcc/OneDrive/Documents/GitHub/Data-332/Consumer_Complaint_Txet_Analysis_HW/Data")
 
 df <- read.csv("Consumer_Complaints.csv")
 df <- df %>%
@@ -21,11 +21,11 @@ get_sentiments("nrc")
 tidy_complaints <- df %>%
   unnest_tokens(word, Consumer.complaint.narrative)
 
-# Save an object to a file
+# Saving data as rds files
 saveRDS(tidy_complaints, file = "tidy_complaints.rds")
-
-tidy_complaints_rds <- readRDS("tidy_complaints.rds")
-
+saveRDS(customer_complaints_sentiment_sample_company, file = "sentiment_analysis_company.rds")
+saveRDS(customer_complaints_sentiment_product, file = "sentiment_analysis_product.rds")
+saveRDS(customer_complaints_sentiment_state, file = "sentiment_analysis_state.rds")
 
 # Pivot tables for sentimnt analysises based on Company, Product, and State
 customer_complaints_sentiment_company <- tidy_complaints %>%
