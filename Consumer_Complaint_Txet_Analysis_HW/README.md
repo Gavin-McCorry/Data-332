@@ -56,3 +56,35 @@ customer_complaints_sentiment_state <- tidy_complaints %>%
   mutate(sentiment = positive - negative)
 ```
 
+## Data Summary 
+### Sentiment Analysis
+* ![customer_sentiment_analysis_by_company](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Data/sentiment_analysis_company.rds)
+* ![customer_sentiment_analysis_by_product](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Data/sentiment_analysis_product.rds)
+* ![customer_sentiment_analysis_by_state](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Data/sentiment_analysis_state.rds)
+
+## Data Analysis
+1. Sentiment Analysis by Company:
+![alt text](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Pics/customer_complaints_sent__company_analysis.png)
+* This graph shows the sentiment scores of customer complaints sorted by company
+* This is a random sample of 50 companies from a pool of over 2600 companies to make visualization easier
+* As we can see from this graph most companies' sentiment scores are very similar, except for NCC Business Services, Inc. which has a sentiment score lower than -300.
+
+2. Sentiment Analysis by Product:
+![alt text](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Pics/customer_complaints_sent_product_analysis.png)
+* This graph shows the sentiment scores of customer complaints sorted by product
+* We can see that the Debt collection, Credit reporting, and Mortgage services have the worst reviews by customers based on their sentiment score.
+
+3. Sentiment Analysis by State
+![alt text](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Pics/customer_complaints_sent_state_analysis.png)
+* This graph shows the sentiment scores of customer complaints sorted by state
+* We can see that California has the worst complaints from customers n terms of sentiment score, followed by Florida and Texas
+
+4. Word Cloud
+![alt text](https://github.com/Gavin-McCorry/Data-332/blob/main/Consumer_Complaint_Txet_Analysis_HW/Pics/customer_sentiment_word_cloud.png)
+* This is a word cloud containing the top 100 most influential positive and negative words.
+Contrary to belief there seems to be more positive sentiment words than negative. However, if we take a closer look at words like work, and correct them, we can imagine that these words were actually used in a negative connotation. Because of this, the word cloud isn't very helpful.
+
+
+
+
+
