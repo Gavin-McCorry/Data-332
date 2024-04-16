@@ -1,0 +1,12 @@
+name: MTCARS_App
+title: MTCARS_App
+username: gavin-mccorry
+account: gavin-mccorry
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11725815
+bundleId: 8478578
+url: https://gavin-mccorry.shinyapps.io/MTCARS_App/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
