@@ -112,3 +112,22 @@ server <- function(input, output) {
 ```
 
 ## Shiny App
+
+
+## Copyright Notice
+
+The content and code snippets in this repository, unless otherwise indicated, are © [Your Name/Your Group Name] and contributors. All rights reserved.
+
+### Restrictions on Use
+
+1. **Use of Code**: You may view and refer to the code for educational and personal use. However, you may not reproduce, distribute, or create derivative works based on this code without explicit permission from the copyright owner.
+
+2. **Use of Shiny App**: The Shiny app deployed in this repository is intended for demonstration purposes only. You may interact with the app through the provided link but may not copy, modify, or redistribute the app without permission.
+
+### Permissions
+
+For inquiries regarding the use of the code or the Shiny app for commercial or other purposes not mentioned above, please contact [gwmccorry@gmail.com].
+
+### Attribution
+
+If you refer to or use any portion of this repository in your own work, please provide appropriate attribution by linking back to this repository.
