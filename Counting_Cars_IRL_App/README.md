@@ -1,122 +1,52 @@
 # IRL Cars Analysis
 
 ## About 📰
+Radar speed signs track the speed that drivers are going to encourage safe driving practices, such as driving within the speed limit and keeping pedestrians safe. Many statitica; analysis of these signs have shown that drivers decrease their speeds wen radar speds are installed. Our goal in this project was to determine if these claims from the radar companies and other analysis of the technology are true.
 
-This project analyzes real-world car data to extract insights and visualize key statistics using R and Shiny.
+For this project we hand collected data about the speed of the cars, in Miles Per Hour, the time of day the car was observed, the weather conditions, temperature, and day of the week. 
 
-## Data Collection :
+## Authors
+Gavin McCorry, Gianni Gubbins, Sam Mulugeta
+
+## Data Collection
 
 Describe how the car data was collected and any preprocessing steps performed.
 
 ## Code ✍️
-
+The shiny app template us was obtained from the shinydashboard library.
 ```R
-dashboardBody(
-  tabItems(
-    # Dashboard Items
-    tabItem(tabName = "dashboard",
-      fluidRow(
-        column(width = 4, 
-          box(title = "About", status = "primary", solidHeader = TRUE, width = NULL,"This is where the paragraph will go") 
-        ),
-        column(width = 4, 
-          valueBoxOutput("num_data_points", width = NULL),
-          valueBoxOutput("num_variables", width = NULL), 
-          valueBoxOutput("max_mph", width = NULL), 
-          valueBoxOutput("min_mph", width = NULL), 
-          valueBoxOutput("mean_mph", width = NULL), 
-          valueBoxOutput("mode_mph", width = NULL)
-        ),
-        column(width = 4, 
-           box(title = "Authors", status = "primary", width = NULL, solidHeader = TRUE, 
-               "Gavin McCorry", 
-               br(),
-               "Gianni Gubbins", 
-               br(),
-               "Sam Mulugeta")
-        )
-      )
-    ),
-    
-    # Data Set Items
-    tabItem(tabName = "data",
-      titlePanel(title = "Explore IRL Cars Data Set"),
-      DT::dataTableOutput("table")
-    ),
-    
-    tabItem(tabName = "analysis", 
-      fluidRow(
-        column(3, 
-          selectInput('X', 'Choose X', column_names, column_names[1]), 
-          selectInput('Y', 'Choose Y', column_names, column_names[3]), 
-          selectInput('Splitby', 'Split By', column_names, column_names[3])
-        ),
-        column(10,
-          box(plotOutput('plot_01')), 
-          box(plotOutput('plot_02'))
-          )
-        )
-      ),
-      
-      tags$head(
-        tags$style(
-          HTML(
-            ".selectize-control { width: 100% !important; }"
-        )
-      )
-    )
-  )
-)
+library(shinydashboard)
 ```
 
+All the Code was simple and self explanitoy exept for when displaying the times the data was collected on the graphs. With to many individual times the graph was messy and hard to read. To do this we had to first change the format of the time data so that it could be displayed correclty, and so that R could skip the hours correclty. This was done using the as.POSIXct function.
 ```R
-server <- function(input, output) {
-  output$num_data_points <- renderValueBox({
-    valueBox(nrow(mock_data), "Number of Observations", icon = icon("eye"), color = "light-blue")
+output$plot_01 <- renderPlot({
+    if (input$X == "Time.of.Day") {
+      # Convert input$X values to POSIXct datetime objects
+      df$Time <- as.POSIXct(df$Time.of.Day, format = "%I:%M %p")
+      
+      ggplot(df, aes_string(x = df$Time, y = input$Y, colour = input$Splitby)) + 
+        geom_point() +
+        scale_x_datetime(date_breaks = "1 hour", date_labels = "%I:%M %p")
+      
+    } else {
+      ggplot(df, aes_string(x = input$X, y = input$Y, colour = input$Splitby)) + 
+        geom_point() +
+        labs(x = input$X, y = input$Y)
+    }
   })
-  
-  output$num_variables <- renderValueBox({
-    valueBox(ncol(mock_data), "Number of Variables", icon = icon("list"), color = "light-blue")
-  })
-  
-  output$max_mph <- renderValueBox({
-    valueBox(max(mock_data$MPH), "Max MPH", icon = icon("maximize"), color = "light-blue")
-  })
-  
-  output$min_mph <- renderValueBox({
-    valueBox(min(mock_data$MPH), "Min MPH", icon = icon("minimize"), color = "light-blue")
-  })
-  
-  output$mean_mph <- renderValueBox({
-    valueBox(mean(mock_data$MPH), "Mean MPH", icon = icon("percent"), color = "light-blue")
-  })
-  
-  output$mode_mph <- renderValueBox({
-    valueBox(mode(mock_data$MPH), "Mode MPH", icon = icon("plus"), color = "light-blue")
-  })
-  
-  # For Table displaying data set
-  output$table <- DT::renderDataTable(mock_data, options = list(pagelength = 4))
-  
-  # Displaying chart in analysis
-  output$plot_01 <- renderPlot({
-    ggplot(mock_data, aes_string(x = input$X, y = input$Y, colour = input$Splitby)) + 
-      geom_point()
-  })
-  
-  output$plot_02 <- renderPlot({
-    ggplot(mock_data, aes_string(x = input$X, colour = input$Splitby)) + 
-      geom_bar()
-  })
-}
 ```
 
 ## Shiny App
+All visuals and data are can be found on the link below.
+https://gavin-mccorry.shinyapps.io/Counting_Cars_IRL_App/
 
+## Conclusion
+Based on the 150 cars obsrved, we can find no initial correlation between the ffectivnss of the radar and th speeds of cars. Besides the effectiveeness of th radar, time of day, temperature, and wheater dont have any correlation either with the speed of cars. More oservations ar needed to draw furthr conclusions about th effectiveenss of speed radars on drivers speeding. 
 
 ## Copyright Notice
 
-The content and code snippets in this repository, unless otherwise indicated, are © [Your Name/Your Group Name] and contributors. All rights reserved.
+The content and code snippets in this repository, unless otherwise indicated, are Gavin McCorry, Gianni Gubbins, and Sam Mulugeta's. All rights reserved.
 
 ### Restrictions on Use
 
