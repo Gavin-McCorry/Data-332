@@ -1,23 +1,14 @@
-# Makes Mock Data Set
-# Set seed for reproducibility
-set.seed(123)
-
-# Generate 50 observations of mock data
-n <- 50  # Number of observations
-
-# Create a data frame with mock data
-mock_data <- data.frame(
-  MPH = round(runif(n, min = 40, max = 80), 1),  # Random MPH between 40 and 80
-  TimeOfDay = sample(c("Morning", "Afternoon", "Evening", "Night"), n, replace = TRUE),  # Random time of day
-  Temperature = round(rnorm(n, mean = 70, sd = 10), 1),  # Random temperature around 70°F with SD of 10
-  Weather = sample(c("Sunny", "Cloudy", "Rainy", "Snowy"), n, replace = TRUE)  # Random weather conditions
-)
-
-column_names <- colnames(mock_data)
-
 library(shiny)
 library(shinydashboard)
 library(DT)
+library(ggplot2)
+library(readxl)
+
+
+df <- read.csv("IRL_Car_Data.csv")
+df <- df[1: (length(df) - 1)]
+
+column_names <- colnames(df)
 
 ui <- dashboardPage(
   dashboardHeader(title = "Counting Cars IRL"), 
@@ -36,7 +27,28 @@ ui <- dashboardPage(
       tabItem(tabName = "dashboard",
         fluidRow(
           column(width = 4, 
-            box(title = "About", status = "primary", solidHeader = TRUE, width = NULL,"This is where the paragraph will go") 
+            box(title = "About", status = "primary", solidHeader = TRUE, width = NULL,
+                HTML('<div style="font-size: 20px;">
+                Radar speed signs track the speed that drivers are going to encourage safe 
+                driving practices, such as driving within the speed limit and keeping pedestrians safe. 
+                Many statitica; analysis of these signs have shown that drivers decrease their speeds wen
+                radar speds are installed. Our goal in this project was to determine if these claims from the radar 
+                companies and other analysis of the technology are true.
+                </div>'), 
+                br(),
+                br(),
+                HTML('<div style="font-size: 20px;">
+                For this project we hand collected data about the speed of the cars, in Miles Per Hour, the time 
+                of day the car was observed, the weather conditions, temperature, and day of the week.
+                </div>'), 
+                br(), 
+                br(),
+                HTML('<div style="font-size: 20px;">
+                The data collected can be observed in the “Data Set” page, and an analysis of the data can be lookd 
+                at on the “Analysis” page.
+                </div>'), 
+              
+            ) 
           ),
           column(width = 4, 
             valueBoxOutput("num_data_points", width = NULL),
@@ -44,16 +56,17 @@ ui <- dashboardPage(
             valueBoxOutput("max_mph", width = NULL), 
             valueBoxOutput("min_mph", width = NULL), 
             valueBoxOutput("mean_mph", width = NULL), 
-            valueBoxOutput("mode_mph", width = NULL)
+            valueBoxOutput("median_mph", width = NULL)
     
           ),
           column(width = 4, 
              box(title = "Authors", status = "primary", width = NULL, solidHeader = TRUE, 
-                 "Gavin McCorry", 
+                 HTML('<div style="font-size: 20px;">Gavin McCorry</div>'), 
                  br(),
-                 "Gianni Gubbins", 
+                 HTML('<div style="font-size: 20px;">Gianni Gubbins</div>'), 
                  br(),
-                 "Sam Mulugeta")
+                 HTML('<div style="font-size: 20px;">Sam Mulugeta</div>')
+            )
           )
         )
       ),
@@ -67,13 +80,13 @@ ui <- dashboardPage(
       tabItem(tabName = "analysis", 
         fluidRow(
           column(3, 
-            selectInput('X', 'Choose X', column_names, column_names[1]), 
-            selectInput('Y', 'Choose Y', column_names, column_names[3]), 
-            selectInput('Splitby', 'Split By', column_names, column_names[3])
+            selectInput('X', 'Choose X', column_names, selected = column_names[2]), 
+            selectInput('Y', 'Choose Y', column_names, selected =   column_names[1]), 
+            selectInput('Splitby', 'Split By', column_names, column_names[2])
           ),
-          column(10,
-            box(plotOutput('plot_01')), 
-            box(plotOutput('plot_02'))
+          column(6,
+            box(plotOutput('plot_01'), width = NULL), 
+            box(plotOutput('plot_02'), width = NULL)
             )
           )
         )
@@ -91,40 +104,51 @@ ui <- dashboardPage(
 
 server <- function(input, output) {
   output$num_data_points <- renderValueBox({
-    valueBox(nrow(mock_data), "Number of Observations", icon = icon("eye"), color = "light-blue")
+    valueBox(nrow(df), "Number of Observations", icon = icon("eye"), color = "light-blue")
   })
   
   output$num_variables <- renderValueBox({
-    valueBox(ncol(mock_data), "Number of Variables", icon = icon("list"), color = "light-blue")
+    valueBox(ncol(df), "Number of Variables", icon = icon("list"), color = "light-blue")
   })
   
   output$max_mph <- renderValueBox({
-    valueBox(max(mock_data$MPH), "Max MPH", icon = icon("maximize"), color = "light-blue")
+    valueBox(max(df$MPH), "Max MPH", icon = icon("maximize"), color = "light-blue")
   })
   
   output$min_mph <- renderValueBox({
-    valueBox(min(mock_data$MPH), "Min MPH", icon = icon("minimize"), color = "light-blue")
+    valueBox(min(df$MPH), "Min MPH", icon = icon("minimize"), color = "light-blue")
   })
   
   output$mean_mph <- renderValueBox({
-    valueBox(mean(mock_data$MPH), "Mean MPH", icon = icon("percent"), color = "light-blue")
+    valueBox(mean(df$MPH), "Mean MPH", icon = icon("percent"), color = "light-blue")
   })
   
-  output$mode_mph <- renderValueBox({
-    valueBox(mode(mock_data$MPH), "Mode MPH", icon = icon("plus"), color = "light-blue")
+  output$median_mph <- renderValueBox({
+    valueBox(median(df$MPH), "Median MPH", icon = icon("plus"), color = "light-blue")
   })
   
   # For Table displaying data set
-  output$table <- DT::renderDataTable(mock_data, options = list(pagelength = 4))
+  output$table <- DT::renderDataTable(df, options = list(pagelength = 4))
   
   # Displaying chart in analysis
   output$plot_01 <- renderPlot({
-    ggplot(mock_data, aes_string(x = input$X, y = input$Y, colour = input$Splitby)) + 
-      geom_point()
+    if (input$X == "Time.of.Day") {
+      # Convert input$X values to POSIXct datetime objects
+      df$Time <- as.POSIXct(df$Time.of.Day, format = "%I:%M %p")
+      
+      ggplot(df, aes_string(x = df$Time, y = input$Y, colour = input$Splitby)) + 
+        geom_point() +
+        scale_x_datetime(date_breaks = "1 hour", date_labels = "%I:%M %p")
+      
+    } else {
+      ggplot(df, aes_string(x = input$X, y = input$Y, colour = input$Splitby)) + 
+        geom_point() +
+        labs(x = input$X, y = input$Y)
+    }
   })
   
   output$plot_02 <- renderPlot({
-    ggplot(mock_data, aes_string(x = input$X, colour = input$Splitby)) + 
+    ggplot(df, aes_string(x = input$X)) + 
       geom_bar()
   })
   

@@ -1,0 +1,13 @@
+name: Counting_Cars_IRL_App
+title: Counting_Cars_IRL_App
+username: gavin-mccorry
+account: gavin-mccorry
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11788956
+bundleId: 8506931
+url: https://gavin-mccorry.shinyapps.io/Counting_Cars_IRL_App/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: IRL_Car_Data.xlsx|README.md
