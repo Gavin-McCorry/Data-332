@@ -1,7 +1,7 @@
 # IRL Cars Analysis
 
 ## About 📰
-Radar speed signs track the speed that drivers are going to encourage safe driving practices, such as driving within the speed limit and keeping pedestrians safe. Many statitica; analysis of these signs have shown that drivers decrease their speeds wen radar speds are installed. Our goal in this project was to determine if these claims from the radar companies and other analysis of the technology are true.
+Radar speed signs track the speed which drivers are going to encourage safe driving practices, such as driving within the speed limit and keeping pedestrians safe. Many statitica; analysis of these signs have shown that drivers decrease their speeds wen radar speds are installed. Our goal in this project was to determine if these claims from the radar companies and other analysis of the technology are true.
 
 For this project we hand collected data about the speed of the cars, in Miles Per Hour, the time of day the car was observed, the weather conditions, temperature, and day of the week. 
 
@@ -13,12 +13,12 @@ Gavin McCorry, Gianni Gubbins, Sam Mulugeta
 Describe how the car data was collected and any preprocessing steps performed.
 
 ## Code ✍️
-The shiny app template us was obtained from the shinydashboard library.
+The shiny app template was obtained from the shinydashboard library.
 ```R
 library(shinydashboard)
 ```
 
-All the Code was simple and self explanitoy exept for when displaying the times the data was collected on the graphs. With to many individual times the graph was messy and hard to read. To do this we had to first change the format of the time data so that it could be displayed correclty, and so that R could skip the hours correclty. This was done using the as.POSIXct function.
+All the Code was simple and self-explanatory except for when displaying the times the data was collected on the graphs. With to many individual times, the graph was messy and hard to read. To do this we had to first change the format of the time data so that it could be displayed correctly, and so that R could skip the hours correctly. This was done using the as.POSIXct function.
 ```R
 output$plot_01 <- renderPlot({
     if (input$X == "Time.of.Day") {
@@ -38,11 +38,11 @@ output$plot_01 <- renderPlot({
 ```
 
 ## Shiny App
-All visuals and data are can be found on the link below.
+All visuals and data can be found on the link below.
 https://gavin-mccorry.shinyapps.io/Counting_Cars_IRL_App/
 
 ## Conclusion
-Based on the 150 cars obsrved, we can find no initial correlation between the ffectivnss of the radar and th speeds of cars. Besides the effectiveeness of th radar, time of day, temperature, and wheater dont have any correlation either with the speed of cars. More oservations ar needed to draw furthr conclusions about th effectiveenss of speed radars on drivers speeding. 
+Based on the 150 cars observed, we can find no initial correlation between the effectiveness of the radar and the speeds of cars. Besides the effectiveness of the radar, time of day, temperature, and weather don't have any correlation either with the speed of cars. More observations are needed to draw further conclusions about the effectiveness of speed radars on drivers speeding. 
 
 ## Copyright Notice
 
