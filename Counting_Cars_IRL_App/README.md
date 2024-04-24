@@ -1,16 +1,42 @@
 # IRL Cars Analysis
 
 ## About 📰
-Radar speed signs track the speed which drivers are going to encourage safe driving practices, such as driving within the speed limit and keeping pedestrians safe. Many statitica; analysis of these signs have shown that drivers decrease their speeds wen radar speds are installed. Our goal in this project was to determine if these claims from the radar companies and other analysis of the technology are true.
+Radar speed signs track the speed at which drivers are going to encourage safe driving practices, such as driving within the speed limit and keeping pedestrians safe. Many statistics and analyses of these signs have shown that drivers decrease their speeds when radar speeds are installed. Our goal in this project was to determine if these claims from the radar companies and other analyses of the technology are true.
 
-For this project we hand collected data about the speed of the cars, in Miles Per Hour, the time of day the car was observed, the weather conditions, temperature, and day of the week. 
+For this project, we hand-collected data about the speed of the cars, in Miles Per Hour, the time of day the car was observed, the weather conditions, temperature, and the day of the week. 
 
 ## Authors
 Gavin McCorry, Gianni Gubbins, Sam Mulugeta
 
-## Data Collection
+# Dataset Dictionary
 
-Describe how the car data was collected and any preprocessing steps performed.
+This document provides a dictionary of variables collected in the dataset used for the "Counting Cars IRL" project.
+
+### Variables
+
+- **Date**: The date when the car data was collected.
+- **Temperature**: The temperature at the time of data collection.
+- **Weather**: Weather conditions during data collection (e.g., sunny, rainy, cloudy).
+- **Time**: Time of day when the car was observed.
+- **MPH**: Speed of the vehicle in miles per hour.
+- **Vehicle.Color**: Color of the vehicle.
+- **State**: State where the data collection occurred.
+- **Collector.Name**: Name of the data collector.
+- **Flashing.Light**: Indicator if the vehicle had flashing lights.
+- **Manufacturer**: Manufacturer of the vehicle.
+- **Vehicle.Type**: Type of vehicle (e.g., sedan, SUV, truck).
+- **Week.Day**: Day of the week when the data was collected.
+
+### Notes
+- Some variables may have missing values (NA) or require preprocessing for analysis.
+
+## Data Collection
+For this project, our group, along with the rest of our Data-332 class hand collected data about the speed of the cars, in Miles Per Hour, the time of day the car was observed, the weather conditions, temperature, the day of the week, and the other variables mentioned above. Our group collected 150 car data points, 50 per person. 
+
+## Data Cleaning
+There were 8 different groups working on the same project and each group ended up collecting the data a little differently. Not all eight groups collected all 12 of the variables shown above. There were also differences in the names of each group's columns, along with spelling discrepancies between the data collected. For example, some groups had the color of some vehicles as "gray" whereas others had the color spelled "grey". These discrepancies made it so that in the raw data it looked like there were more different data points collected than there actually were. 
+
+To correct these differences between the groups, we loaded the Excel files into 8 different data frames in R, and used some R functions, along with some functions we made to correct the differences. Once each separate data frame was cleaned, we joined all 8 data frames together. 
 
 ## Code ✍️
 The shiny app template was obtained from the shinydashboard library.
@@ -42,8 +68,9 @@ All visuals and data can be found on the link below.
 https://gavin-mccorry.shinyapps.io/Counting_Cars_IRL_App/
 
 ## Conclusion
-Based on the 150 cars observed, we can find no initial correlation between the effectiveness of the radar and the speeds of cars. Besides the effectiveness of the radar, time of day, temperature, and weather don't have any correlation either with the speed of cars. More observations are needed to draw further conclusions about the effectiveness of speed radars on drivers speeding. 
+Based on the 150 cars observed, we found no  initial correlation between the effectiveness of the radar and the speeds of cars. Besides the effectiveness of the radar, time of day, temperature, and weather don't have any correlation either with the speed of cars. More observations are needed to draw further conclusions about the effectiveness of speed radars on drivers speeding. 
 
+After combining all of the group's data, we found a slight correlation between the time of day and MPH, and the temperature and MPH. we found that as it gets later in the day cars' average MPH slightly decreased. We also found that as temperatures get warmer, the average MPH of the cars slightly decreases as well.
 ## Copyright Notice
 
 The content and code snippets in this repository, unless otherwise indicated, are Gavin McCorry, Gianni Gubbins, and Sam Mulugeta's. All rights reserved.
