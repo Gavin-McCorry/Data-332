@@ -1,0 +1,13 @@
+name: Uber_App_Assignment
+title: Uber_App_Assignment
+username: gavin-mccorry
+account: gavin-mccorry
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11940910
+bundleId: 8584381
+url: https://gavin-mccorry.shinyapps.io/Uber_App_Assignment/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Combining Uber Data.R|Testing Graphs and Pivot Tables.R|Data
