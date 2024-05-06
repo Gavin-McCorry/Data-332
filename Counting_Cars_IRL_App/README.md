@@ -83,7 +83,7 @@ The content and code snippets in this repository, unless otherwise indicated, ar
 
 ### Permissions
 
-For inquiries regarding the use of the code or the Shiny app for commercial or other purposes not mentioned above, please contact [gwmccorry@gmail.com].
+For inquiries regarding the use of the code or the Shiny app for commercial or other purposes not mentioned above, please contact [gavin.mccorry2025@gmail.com].
 
 ### Attribution
 
